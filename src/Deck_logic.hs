@@ -22,6 +22,9 @@ type Deck = [Card]
 create_deck :: Deck
 create_deck = [(a, b) | a <- [Ace ..], b <- [Clubs ..]]
 
+create_without :: [Card] -> [Card]
+create_without a = filter (\x -> (notElem x a)) create_deck
+
 shuffle :: [a] -> IO [a]
 shuffle x = if length x < 2 then return x else do
     i <- System.Random.randomRIO (0, length(x)-1)
@@ -31,5 +34,5 @@ shuffle x = if length x < 2 then return x else do
 get_hand :: [a] -> (a, a)
 get_hand (x:xs) = (x, head xs)
 
-create_without :: [Card] -> [Card]
-create_without a = filter (\x -> (notElem x a)) create_deck
+remove_cards :: Int -> Deck -> Deck
+remove_cards a deck = drop a deck
