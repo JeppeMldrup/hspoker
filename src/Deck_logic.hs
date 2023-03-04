@@ -1,3 +1,11 @@
+module Deck_logic (
+    Card,
+    Deck,
+    create_deck,
+    shuffle,
+    create_without
+) where
+
 import System.Random
 
 data Suit = Clubs | Spades | Hearts | Diamonds deriving (Show, Enum, Eq);
