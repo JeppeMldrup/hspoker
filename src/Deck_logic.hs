@@ -4,7 +4,9 @@ module Deck_logic (
     Deck,
     create_deck,
     shuffle,
-    create_without
+    get_hand,
+    create_without,
+    remove_cards
 ) where
 
 import System.Random
