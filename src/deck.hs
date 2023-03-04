@@ -1,8 +1,8 @@
 import System.Random
 
-data Suit = Clubs | Spades | Hearts | Diamonds deriving (Show, Enum);
+data Suit = Clubs | Spades | Hearts | Diamonds deriving (Show, Enum, Eq);
 
-data Value = Ace | Two | Three | Four | Five | Six | Seven | Eight | Nine | Ten | Jack | Queen | King deriving (Show, Enum);
+data Value = Ace | Two | Three | Four | Five | Six | Seven | Eight | Nine | Ten | Jack | Queen | King deriving (Show, Enum, Eq);
 
 type Card = (Value, Suit)
 
@@ -16,3 +16,6 @@ shuffle x = if length x < 2 then return x else do
     i <- System.Random.randomRIO (0, length(x)-1)
     r <- shuffle (take i x ++ drop (i+1) x)
     return (x!!i : r)
+
+create_without :: [Card] -> [Card]
+create_without a = filter (\x -> (notElem x a)) create_deck
