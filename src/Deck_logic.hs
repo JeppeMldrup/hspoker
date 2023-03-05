@@ -13,7 +13,7 @@ import System.Random
 
 data Suit = Clubs | Spades | Hearts | Diamonds deriving (Show, Enum, Eq);
 
-data Value = Ace | Two | Three | Four | Five | Six | Seven | Eight | Nine | Ten | Jack | Queen | King deriving (Show, Enum, Eq);
+data Value = Ace | Two | Three | Four | Five | Six | Seven | Eight | Nine | Ten | Jack | Queen | King deriving (Show, Enum, Eq, Ord);
 
 type Card = (Value, Suit)
 
