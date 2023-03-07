@@ -1,3 +1,20 @@
+module Hand_logic(
+    all_combinations,
+    best_combo,
+    subsets,
+    combo_value,
+    straight_flush,
+    four_of_a_kind,
+    full_house,
+    flush,
+    straight,
+    three_of_a_kind,
+    two_pairs,
+    pair,
+    high_card,
+    kicker
+) where
+
 import Deck_logic
 import Data.List
 import Data.Ord
