@@ -3,6 +3,8 @@ module Src.Deck_logic (
     Hand_value(..),
     Hand,
     Deck,
+    Suit(..),
+    Value(..),
     create_deck,
     shuffle,
     get_hand,

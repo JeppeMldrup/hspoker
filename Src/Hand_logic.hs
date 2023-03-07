@@ -46,10 +46,12 @@ two_pairs combo = pair combo
 
 pair combo = high_card combo
 
-high_card combo = Hand_value combo (kicker (sortDesc (map card_value combo)))
+high_card combo = Hand_value combo (kicker combo)
 
-kicker :: [Double] -> Double
-kicker x = if length x == 1 then head x else
-    (head x) + (0.1 * (kicker (tail x)))
+kicker combo = kickerValue (sortDesc (map card_value combo))
+
+kickerValue :: [Double] -> Double
+kickerValue x = if length x == 1 then head x else
+    (head x) + (0.1 * (kickerValue (tail x)))
 
 sortDesc a = sortOn Down a
