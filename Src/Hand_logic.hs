@@ -1,4 +1,4 @@
-module Hand_logic(
+module Src.Hand_logic(
     all_combinations,
     best_combo,
     subsets,
@@ -15,7 +15,7 @@ module Hand_logic(
     kicker
 ) where
 
-import Deck_logic
+import Src.Deck_logic
 import Data.List
 import Data.Ord
 

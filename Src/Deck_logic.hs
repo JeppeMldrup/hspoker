@@ -1,4 +1,4 @@
-module Deck_logic (
+module Src.Deck_logic (
     Card(..),
     Hand_value(..),
     Hand,
