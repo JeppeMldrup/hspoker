@@ -21,3 +21,10 @@ cabal.project.local
 cabal.project.local~
 .HTF/
 .ghc.environment.*
+
+# Haddock files
+*.css
+*.html
+*.png
+*.json
+*.js

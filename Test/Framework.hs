@@ -9,8 +9,16 @@ module Test.Framework(
 
 import System.IO
 
+{- | UnitTest type
+
+Define unittest using a string and defining a function with the actual test
+-}
 data UnitTest = Test String (String -> TestResult)
 
+{- | TestResult Type
+
+Should be the result from the function in a UnitTest type
+-}
 data TestResult = Passed | Failed String deriving (Show)
 
 assertEqual str a b = if a == b then
