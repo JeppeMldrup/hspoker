@@ -1,3 +1,7 @@
+{- |
+Module: Hand_logic
+Description: A module containing function that handle scoring poker hands
+-}
 module Src.Hand_logic(
     all_combinations,
     best_combo,
@@ -19,35 +23,63 @@ import Src.Deck_logic
 import Data.List
 import Data.Ord
 
+{- | A function that takes a hand with two cards, and whatever cards are in the middle, and returns all possible combinations
+-}
 all_combinations hand deck = [a | a <-(subsets ((fst hand) : (snd hand) : deck)), length a == 5]
 
+{- | A function that takes a list and returns all subsets
+-}
 subsets :: [a] -> [[a]]
 subsets [] = [[]]
 subsets (x:xs) = subsets xs ++ map (x:) (subsets xs)
 
+{- | A function that takes a list of card combinations, and returns the best combination from the list with a valuation so it can be compared
+-}
 best_combo :: [[Card]] -> Hand_value
 best_combo hands = head (sortDesc (map combo_value hands))
 
+{- | A function that takes a single card combination and returns the value
+-}
 combo_value combo = straight_flush combo
 
+{-| Check for straight flush
+-}
 straight_flush combo = four_of_a_kind combo
 
+{-| Chech for four of a kind
+-}
 four_of_a_kind combo = full_house combo
 
+{-| Check for full house
+-}
 full_house combo = flush combo
 
+{-| Check for flush
+-}
 flush combo = straight combo
 
+{-| Check for straight
+-}
 straight combo = three_of_a_kind combo
 
+{-| Check for three of a kind
+-}
 three_of_a_kind combo = two_pairs combo
 
+{-| Check for two pairs
+-}
 two_pairs combo = pair combo
 
+{-| Check for a single pair
+-}
 pair combo = high_card combo
 
+{-| Generates a valuation on a hand, assuming the hand has no other better combinations than the highest card
+-}
 high_card combo = Hand_value combo (kicker combo)
 
+{-| A function that takes a card combination and calculates a value representing the kicker power of the combo
+-}
 kicker combo = kickerValue (sortDesc (map card_value combo))
 
 kickerValue :: [Double] -> Double
