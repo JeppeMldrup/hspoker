@@ -15,6 +15,7 @@ module Src.Hand_logic(
     three_of_a_kind,
     two_pairs,
     pair,
+    find_pair,
     high_card,
     kicker
 ) where
@@ -40,7 +41,7 @@ best_combo hands = head (sortDesc (map combo_value hands))
 
 {- | A function that takes a single card combination and returns the value
 -}
-combo_value combo = straight_flush combo
+combo_value combo = straight_flush (sortDesc combo)
 
 {-| Check for straight flush
 -}
@@ -72,7 +73,16 @@ two_pairs combo = pair combo
 
 {-| Check for a single pair
 -}
-pair combo = high_card combo
+pair combo = let x = (find_pair combo) in
+    if length x == 0 then
+        high_card combo
+    else
+        Hand_value combo (10 + (kicker combo))
+
+{-| A function that finds and returns a potential pair in a list of cards
+-}
+find_pair [a] = []
+find_pair (x:xs) = if x == (head xs) then [x, (head xs)] else (find_pair xs)
 
 {-| Generates a valuation on a hand, assuming the hand has no other better combinations than the highest card
 -}

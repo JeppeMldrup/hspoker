@@ -84,7 +84,8 @@ get_hand (x:xs) = (x, head xs)
 remove_cards :: Int -> Deck -> Deck
 remove_cards a deck = drop a deck
 
-{-| A function that returns the value of a single card-}
+{-| A function that returns the value of a single card
+-}
 card_value :: Card -> Double
 card_value (Card value suit) = case value of
     Two -> 1/13
