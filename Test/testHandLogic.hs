@@ -54,5 +54,23 @@ test_handLogic = [
     Test "Test pair on list with pair" (\x -> do
         let cards = [Card Ace Hearts, Card Ace Spades, Card Ten Clubs, Card Seven Spades] :: [Card]
             expected = (Hand_value cards (10 + (kicker cards)))
-        assertEqual x (pair cards) expected)
+        assertEqual x (pair cards) expected),
+    
+    -- Test two_pairs function
+    Test "Test pair on empty list" (\x -> do
+        let cards = [] :: [Card]
+            expected = (Hand_value [] 0)
+        assertEqual x (two_pairs cards) expected),
+    Test "Test pair on list without pair" (\x -> do
+        let cards = [Card Ace Hearts, Card Two Spades, Card Ten Clubs, Card Seven Spades] :: [Card]
+            expected = (Hand_value cards (kicker cards))
+        assertEqual x (two_pairs cards) expected),
+    Test "Test pair on list with pair" (\x -> do
+        let cards = [Card Ace Hearts, Card Ace Spades, Card Ten Clubs, Card Seven Spades] :: [Card]
+            expected = (Hand_value cards (10 + (kicker cards)))
+        assertEqual x (two_pairs cards) expected),
+    Test "Test pair on list with two pairs" (\x -> do
+        let cards = [Card Ace Hearts, Card Ace Spades, Card Ten Clubs, Card Ten Spades, Card Three Clubs] :: [Card]
+            expected = (Hand_value cards (20 + (kicker cards)))
+        assertEqual x (two_pairs cards) expected)
     ]
