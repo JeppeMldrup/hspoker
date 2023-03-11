@@ -57,20 +57,42 @@ test_handLogic = [
         assertEqual x (pair cards) expected),
     
     -- Test two_pairs function
-    Test "Test pair on empty list" (\x -> do
+    Test "Test two_pairs on empty list" (\x -> do
         let cards = [] :: [Card]
             expected = (Hand_value [] 0)
         assertEqual x (two_pairs cards) expected),
-    Test "Test pair on list without pair" (\x -> do
+    Test "Test two_pairs on list without pair" (\x -> do
         let cards = [Card Ace Hearts, Card Two Spades, Card Ten Clubs, Card Seven Spades] :: [Card]
             expected = (Hand_value cards (kicker cards))
         assertEqual x (two_pairs cards) expected),
-    Test "Test pair on list with pair" (\x -> do
+    Test "Test two_pairs on list with pair" (\x -> do
         let cards = [Card Ace Hearts, Card Ace Spades, Card Ten Clubs, Card Seven Spades] :: [Card]
             expected = (Hand_value cards (10 + (kicker cards)))
         assertEqual x (two_pairs cards) expected),
-    Test "Test pair on list with two pairs" (\x -> do
+    Test "Test two_pairs on list with two pairs" (\x -> do
         let cards = [Card Ace Hearts, Card Ace Spades, Card Ten Clubs, Card Ten Spades, Card Three Clubs] :: [Card]
             expected = (Hand_value cards (20 + (kicker cards)))
-        assertEqual x (two_pairs cards) expected)
+        assertEqual x (two_pairs cards) expected),
+
+    -- Test three_of_a_kind function
+    Test "Test three_of_a_kind on empty list" (\x -> do
+        let cards = [] :: [Card]
+            expected = (Hand_value [] 0)
+        assertEqual x (three_of_a_kind cards) expected),
+    Test "Test three_of_a_kind on list without pair" (\x -> do
+        let cards = [Card Ace Hearts, Card Two Spades, Card Ten Clubs, Card Seven Spades] :: [Card]
+            expected = (Hand_value cards (kicker cards))
+        assertEqual x (three_of_a_kind cards) expected),
+    Test "Test three_of_a_kind on list with pair" (\x -> do
+        let cards = [Card Ace Hearts, Card Ace Spades, Card Ten Clubs, Card Seven Spades] :: [Card]
+            expected = (Hand_value cards (10 + (kicker cards)))
+        assertEqual x (three_of_a_kind cards) expected),
+    Test "Test three_of_a_kind on list with two pairs" (\x -> do
+        let cards = [Card Ace Hearts, Card Ace Spades, Card Ten Clubs, Card Ten Spades, Card Three Clubs] :: [Card]
+            expected = (Hand_value cards (20 + (kicker cards)))
+        assertEqual x (three_of_a_kind cards) expected),
+    Test "Test three_of_a_kind on list with three of a kind" (\x -> do
+        let cards = [Card Ace Hearts, Card Ace Spades, Card Ace Clubs, Card Ten Spades, Card Three Clubs] :: [Card]
+            expected = (Hand_value cards (30 + (kicker cards)))
+        assertEqual x (three_of_a_kind cards) expected)
     ]
