@@ -13,6 +13,7 @@ module Src.Hand_logic(
     flush,
     straight,
     three_of_a_kind,
+    find_triplet,
     two_pairs,
     pair,
     find_pair,
@@ -65,7 +66,21 @@ straight combo = three_of_a_kind combo
 
 {-| Check for three of a kind
 -}
-three_of_a_kind combo = two_pairs combo
+three_of_a_kind combo = let x = (find_triplet combo) in
+    if (length x) == 0 then
+        two_pairs combo
+    else
+        Hand_value combo (30 + (kicker combo))
+
+{-| Find and return a potential triplet in a list of cards
+-}
+find_triplet [] = []
+find_triplet [a] = []
+find_triplet [a, b] = []
+find_triplet (a:b:cs) = if (a == b && b == (head cs)) then
+    [a, b, (head cs)]
+    else
+        find_triplet (b:cs)
 
 {-| Check for two pairs
 -}

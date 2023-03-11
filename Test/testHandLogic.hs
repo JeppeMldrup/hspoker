@@ -75,6 +75,28 @@ test_handLogic = [
             expected = (Hand_value cards (20 + (kicker cards)))
         assertEqual x (two_pairs cards) expected),
 
+    -- Test find_triplet function
+    Test "Test find_triplet on empty list" (\x -> do
+        let cards = [] :: [Card]
+            expected = [] :: [Card]
+        assertEqual x (find_triplet cards) expected),
+    Test "Test find_triplet on list with one card" (\x -> do
+        let cards = [Card Ace Spades] :: [Card]
+            expected = [] :: [Card]
+        assertEqual x (find_triplet cards) expected),
+    Test "Test find_triplet on list without triplet" (\x -> do
+        let cards = [Card Ace Spades, Card Ace Diamonds, Card King Clubs] :: [Card]
+            expected = [] :: [Card]
+        assertEqual x (find_triplet cards) expected),
+    Test "Test find_triplet on list with triplet" (\x -> do
+        let cards = [Card King Diamonds, Card Ten Spades, Card Ten Clubs, Card Ten Diamonds] :: [Card]
+            expected = [Card Ten Spades, Card Ten Clubs, Card Ten Diamonds]
+        assertEqual x (find_triplet cards) expected),
+    Test "Test find_triplet on list with triplet not ordered" (\x -> do
+        let cards = [Card King Diamonds, Card Ten Spades, Card Ten Clubs, Card Nine Hearts, Card Ten Diamonds] :: [Card]
+            expected = []
+        assertEqual x (find_triplet cards) expected),
+
     -- Test three_of_a_kind function
     Test "Test three_of_a_kind on empty list" (\x -> do
         let cards = [] :: [Card]
