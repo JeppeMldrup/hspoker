@@ -69,7 +69,12 @@ three_of_a_kind combo = two_pairs combo
 
 {-| Check for two pairs
 -}
-two_pairs combo = pair combo
+two_pairs combo = let x = (find_pair combo)
+                      y = (find_pair (filter (\var -> notElem var x) combo)) in
+    if (length y == 0) then
+        pair combo
+    else
+        Hand_value combo (20 + (kicker combo))
 
 {-| Check for a single pair
 -}
