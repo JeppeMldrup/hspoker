@@ -27,6 +27,7 @@ data TestResult = Passed | Failed String deriving (Show)
 
 {- | Assert that two variables are equal, string is ID for the error message
 -}
+--assertEqual :: (Eq a, Show a) => [Char] -> a -> a -> TestResult
 assertEqual str a b = if a == b then
     Passed
     else

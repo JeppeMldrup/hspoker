@@ -81,6 +81,7 @@ pair combo = let x = (find_pair combo) in
 
 {-| A function that finds and returns a potential pair in a list of cards
 -}
+find_pair [] = []
 find_pair [a] = []
 find_pair (x:xs) = if x == (head xs) then [x, (head xs)] else (find_pair xs)
 
@@ -90,6 +91,7 @@ high_card combo = Hand_value combo (kicker combo)
 
 {-| A function that takes a card combination and calculates a value representing the kicker power of the combo
 -}
+kicker [] = 0
 kicker combo = kickerValue (sortDesc (map card_value combo))
 
 kickerValue :: [Double] -> Double
