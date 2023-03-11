@@ -39,7 +39,12 @@ assertEqualMargin str a b c = if a-b < c then Passed else Failed (str ++ " " ++ 
 
 {- | To print the results of all the tests in a nice way
 -}
-printResults results = map printResult results
+--printResults results = map printResult results
+printResults [] = return ()
+printResults [a] = printResult a
+printResults (x:xs) = do
+    printResults xs
+    printResult x
 
 printResult result = case result of
     Passed -> putStrLn "Passed test case"
