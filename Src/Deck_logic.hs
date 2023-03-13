@@ -32,6 +32,10 @@ data Value = Two | Three | Four | Five | Six | Seven | Eight | Nine | Ten | Jack
 -}
 data Card = Card Value Suit deriving (Show)
 
+instance Enum Card where
+    toEnum a = Card (toEnum a) Clubs
+    fromEnum (Card v a) = fromEnum v
+
 instance Eq Card where
     (Card va sa) == (Card vb sb) = va == vb
 

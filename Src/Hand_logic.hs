@@ -12,6 +12,7 @@ module Src.Hand_logic(
     full_house,
     flush,
     straight,
+    checkStraight,
     three_of_a_kind,
     find_triplet,
     two_pairs,
@@ -60,9 +61,22 @@ full_house combo = flush combo
 -}
 flush combo = straight combo
 
-{-| Check for straight
+{-| Score hand for straight or lower
 -}
-straight combo = three_of_a_kind combo
+straight combo =
+    if (checkStraight combo) then
+        Hand_value combo (40 + (kicker combo))
+    else
+        three_of_a_kind combo
+
+{-| Check for straight and return true/false
+-}
+checkStraight [] = False
+checkStraight [a] = True
+checkStraight (x:xs) = if ((pred x) == (head xs)) then
+    checkStraight xs
+    else
+        False
 
 {-| Check for three of a kind
 -}

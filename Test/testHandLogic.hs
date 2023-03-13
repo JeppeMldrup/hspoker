@@ -117,7 +117,43 @@ test_handLogic = [
     Test "Test three_of_a_kind on list with three of a kind" (\x -> do
         let cards = [Card Ace Hearts, Card Ace Spades, Card Ace Clubs, Card Ten Spades, Card Three Clubs] :: [Card]
             expected = (Hand_value cards (30 + (kicker cards)))
-        assertEqual x (three_of_a_kind cards) expected)
+        assertEqual x (three_of_a_kind cards) expected),
+    
+    -- Test checkStraight function
+    Test "Test checkStraight on empty list" (\x -> do
+        let cards = [] :: [Card]
+            expected = False
+        assertEqual x (checkStraight cards) expected),
+    Test "Test checkStraight on list with cards not in order" (\x -> do
+        let cards = [Card Ace Spades, Card Three Hearts, Card Two Clubs] :: [Card]
+            expected = False
+        assertEqual x (checkStraight cards) expected),
+    Test "Test checkStraight on list with cards in order" (\x -> do
+        let cards = [Card Ace Spades, Card King Hearts, Card Queen Clubs] :: [Card]
+            expected = True
+        assertEqual x (checkStraight cards) expected),
+    Test "Test checkStraight on list with cards in order with extra card not in order" (\x -> do
+        let cards = [Card Ace Spades, Card King Hearts, Card Queen Clubs, Card Ten Diamonds] :: [Card]
+            expected = False
+        assertEqual x (checkStraight cards) expected),
+    
+    -- Test straight function
+    Test "Test straight on empty list" (\x -> do
+        let cards = [] :: [Card]
+            expected = Hand_value cards (kicker cards)
+        assertEqual x (straight cards) expected),
+    Test "Test straight on list not in order" (\x -> do
+        let cards = [Card Ace Spades, Card Two Diamonds, Card Four Hearts] :: [Card]
+            expected = Hand_value cards (kicker cards)
+        assertEqual x (straight cards) expected),
+    Test "Test straight on list in order" (\x -> do
+        let cards = [Card Eight Spades, Card Seven Diamonds, Card Six Hearts] :: [Card]
+            expected = Hand_value cards (40 + kicker cards)
+        assertEqual x (straight cards) expected),
+    Test "Test straight on list ending with two min cards" (\x -> do
+        let cards = [Card Eight Spades, Card Two Diamonds, Card Two Hearts] :: [Card]
+            expected = Hand_value cards (10 + kicker cards) -- There is a pair in the list, so it will be 10+kicker
+        assertEqual x (straight cards) expected)
     ]
 
 main = do runAll test_handLogic
