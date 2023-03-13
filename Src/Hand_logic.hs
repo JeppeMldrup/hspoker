@@ -11,6 +11,7 @@ module Src.Hand_logic(
     four_of_a_kind,
     full_house,
     flush,
+    checkFlush,
     straight,
     checkStraight,
     three_of_a_kind,
@@ -57,9 +58,23 @@ four_of_a_kind combo = full_house combo
 -}
 full_house combo = flush combo
 
-{-| Check for flush
+{-| Score hand for flush or lower
 -}
-flush combo = straight combo
+flush combo =
+    if (checkFlush combo) then
+        Hand_value combo (50 + kicker combo)
+    else
+        straight combo
+
+{-| Check for flush and return true/false value
+-}
+checkFlush [] = False
+checkFlush [a] = True
+checkFlush (x:xs) = let f = (\(Card _ a) (Card _ b) -> a == b) in
+    if (f x (head xs)) then
+        checkFlush xs
+    else
+        False
 
 {-| Score hand for straight or lower
 -}

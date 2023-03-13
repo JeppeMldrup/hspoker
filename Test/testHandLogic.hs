@@ -153,7 +153,31 @@ test_handLogic = [
     Test "Test straight on list ending with two min cards" (\x -> do
         let cards = [Card Eight Spades, Card Two Diamonds, Card Two Hearts] :: [Card]
             expected = Hand_value cards (10 + kicker cards) -- There is a pair in the list, so it will be 10+kicker
-        assertEqual x (straight cards) expected)
+        assertEqual x (straight cards) expected),
+    
+    -- Test checkFlush function
+    Test "Test checkFlush on list with cards no flush" (\x -> do
+        let cards = [Card Ace Spades, Card King Hearts, Card Queen Clubs, Card Ten Diamonds] :: [Card]
+            expected = False
+        assertEqual x (checkFlush cards) expected),
+    Test "Test checkFlush on list with cards with flush" (\x -> do
+        let cards = [Card Ace Hearts, Card King Hearts, Card Queen Hearts, Card Ten Hearts] :: [Card]
+            expected = True
+        assertEqual x (checkFlush cards) expected),
+
+    -- Test flush function
+    Test "Test flush on empty list" (\x -> do
+        let cards = [] :: [Card]
+            expected = Hand_value cards (kicker cards)
+        assertEqual x (flush cards) expected),
+    Test "Test flush on list no flush" (\x -> do
+        let cards = [Card Ace Spades, Card Two Diamonds, Card Four Hearts] :: [Card]
+            expected = Hand_value cards (kicker cards)
+        assertEqual x (flush cards) expected),
+    Test "Test flush on list with flush" (\x -> do
+        let cards = [Card Eight Diamonds, Card Seven Diamonds, Card Six Diamonds, Card Four Diamonds, Card Two Diamonds] :: [Card]
+            expected = Hand_value cards (50 + kicker cards)
+        assertEqual x (flush cards) expected)
     ]
 
 main = do runAll test_handLogic
