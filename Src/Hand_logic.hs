@@ -17,6 +17,7 @@ module Src.Hand_logic(
     three_of_a_kind,
     find_triplet,
     two_pairs,
+    removeList,
     pair,
     find_pair,
     high_card,
@@ -56,13 +57,18 @@ four_of_a_kind combo = full_house combo
 
 {-| Check for full house
 -}
-full_house combo = flush combo
+full_house combo = let x = (find_triplet combo)
+                       y = (find_pair (removeList x combo)) in
+    if (length y == 0) then
+        flush combo
+    else
+        Hand_value combo (60 + (kicker combo))
 
 {-| Score hand for flush or lower
 -}
 flush combo =
     if (checkFlush combo) then
-        Hand_value combo (50 + kicker combo)
+        Hand_value combo (50 + (kicker combo))
     else
         straight combo
 
@@ -114,11 +120,15 @@ find_triplet (a:b:cs) = if (a == b && b == (head cs)) then
 {-| Check for two pairs
 -}
 two_pairs combo = let x = (find_pair combo)
-                      y = (find_pair (filter (\var -> notElem var x) combo)) in
+                      y = (find_pair (removeList x combo)) in
     if (length y == 0) then
         pair combo
     else
         Hand_value combo (20 + (kicker combo))
+
+{-| Remove one list from another
+-}
+removeList a b = (filter (\x -> notElem x a) b)
 
 {-| Check for a single pair
 -}

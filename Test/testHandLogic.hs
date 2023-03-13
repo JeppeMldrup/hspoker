@@ -88,6 +88,10 @@ test_handLogic = [
         let cards = [Card Ace Spades, Card Ace Diamonds, Card King Clubs] :: [Card]
             expected = [] :: [Card]
         assertEqual x (find_triplet cards) expected),
+    Test "Test find_triplet on list with triplet in three cards" (\x -> do
+        let cards = [Card Ten Spades, Card Ten Clubs, Card Ten Diamonds] :: [Card]
+            expected = [Card Ten Spades, Card Ten Clubs, Card Ten Diamonds]
+        assertEqual x (find_triplet cards) expected),
     Test "Test find_triplet on list with triplet" (\x -> do
         let cards = [Card King Diamonds, Card Ten Spades, Card Ten Clubs, Card Ten Diamonds] :: [Card]
             expected = [Card Ten Spades, Card Ten Clubs, Card Ten Diamonds]
@@ -96,6 +100,28 @@ test_handLogic = [
         let cards = [Card King Diamonds, Card Ten Spades, Card Ten Clubs, Card Nine Hearts, Card Ten Diamonds] :: [Card]
             expected = []
         assertEqual x (find_triplet cards) expected),
+
+    -- Test removeList function
+    Test "Test removeList on list with pair and list with full house" (\x -> do
+        let a = [3, 3, 3, 1, 1]
+            b = [1, 1]
+            expected = [3, 3, 3]
+        assertEqual x (removeList b a) expected),
+    Test "Test removeList on list with triplet and list with full house" (\x -> do
+        let a = [3, 3, 3, 1, 1]
+            b = [3, 3, 3]
+            expected = [1, 1]
+        assertEqual x (removeList b a) expected),
+    Test "Test removeList on list with pair and list with full house other way" (\x -> do
+        let a = [1, 1, 3, 3, 3]
+            b = [1, 1]
+            expected = [3, 3, 3]
+        assertEqual x (removeList b a) expected),
+    Test "Test removeList on two lists with no mutual elements" (\x -> do
+        let a = [1, 2, 3, 4, 5]
+            b = [6, 7]
+            expected = [1, 2, 3, 4, 5]
+        assertEqual x (removeList b a) expected),
 
     -- Test three_of_a_kind function
     Test "Test three_of_a_kind on empty list" (\x -> do
@@ -177,7 +203,25 @@ test_handLogic = [
     Test "Test flush on list with flush" (\x -> do
         let cards = [Card Eight Diamonds, Card Seven Diamonds, Card Six Diamonds, Card Four Diamonds, Card Two Diamonds] :: [Card]
             expected = Hand_value cards (50 + kicker cards)
-        assertEqual x (flush cards) expected)
+        assertEqual x (flush cards) expected),
+    
+    -- Test full_house function
+    Test "Test full_house on empty list" (\x -> do
+        let cards = [] :: [Card]
+            expected = Hand_value cards (kicker cards)
+        assertEqual x (full_house cards) expected),
+    Test "Test full_house on list no full house" (\x -> do
+        let cards = [Card Ace Spades, Card Two Diamonds, Card Four Hearts] :: [Card]
+            expected = Hand_value cards (kicker cards)
+        assertEqual x (full_house cards) expected),
+    Test "Test full_house on list with full house" (\x -> do
+        let cards = [Card Eight Diamonds, Card Eight Diamonds, Card Three Diamonds, Card Three Hearts, Card Three Diamonds] :: [Card]
+            expected = Hand_value cards (60 + kicker cards)
+        assertEqual x (full_house cards) expected),
+    Test "Test full_house on list with full house other rotation" (\x -> do
+        let cards = [Card Eight Diamonds, Card Eight Diamonds, Card Eight Spades, Card Three Diamonds, Card Three Diamonds] :: [Card]
+            expected = Hand_value cards (60 + kicker cards)
+        assertEqual x (full_house cards) expected)
     ]
 
 main = do runAll test_handLogic
