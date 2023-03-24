@@ -53,7 +53,11 @@ straight_flush combo = four_of_a_kind combo
 
 {-| Chech for four of a kind
 -}
-four_of_a_kind combo = full_house combo
+four_of_a_kind combo = let x = (find_triplet combo) in
+    if (length x > 0) && ((head x) == (head combo)) then
+        Hand_value combo (70 + (kicker combo))
+    else
+        full_house combo
 
 {-| Check for full house
 -}
