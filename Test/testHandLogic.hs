@@ -241,19 +241,19 @@ test_handLogic = [
     Test "Test straight_flush on empty list" (\x -> do
         let cards = [] :: [Card]
             expected = Hand_value cards (0 + kicker cards)
-        assertEqual x (four_of_a_kind cards) expected),
+        assertEqual x (straight_flush cards) expected),
     Test "Test straight_flush on list with straight" (\x -> do
         let cards = [Card Eight Hearts, Card Seven Diamonds, Card Six Clubs, Card Five Hearts, Card Four Clubs] :: [Card]
             expected = Hand_value cards (40 + kicker cards)
-        assertEqual x (four_of_a_kind cards) expected),
+        assertEqual x (straight_flush cards) expected),
     Test "Test straight_flush on list with flush" (\x -> do
         let cards = [Card Ten Clubs, Card Eight Clubs, Card Seven Clubs, Card Three Clubs, Card Two Clubs] :: [Card]
             expected = Hand_value cards (50 + kicker cards)
-        assertEqual x (four_of_a_kind cards) expected),
+        assertEqual x (straight_flush cards) expected),
     Test "Test straight_flush on list with straight flush" (\x -> do
         let cards = [Card Jack Spades, Card Ten Spades, Card Nine Spades, Card Eight Spades, Card Seven Spades] :: [Card]
             expected = Hand_value cards (80 + kicker cards)
-        assertEqual x (four_of_a_kind cards) expected)
+        assertEqual x (straight_flush cards) expected)
     ]
 
 main = do runAll test_handLogic

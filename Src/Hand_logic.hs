@@ -49,7 +49,11 @@ combo_value combo = straight_flush (sortDesc combo)
 
 {-| Check for straight flush
 -}
-straight_flush combo = four_of_a_kind combo
+straight_flush combo =
+    if ((checkFlush combo) && (checkStraight combo)) then
+        Hand_value combo (80 + (kicker combo))
+    else
+        four_of_a_kind combo
 
 {-| Chech for four of a kind
 -}
