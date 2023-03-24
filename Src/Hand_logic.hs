@@ -67,7 +67,7 @@ four_of_a_kind combo = let x = (find_triplet combo) in
 -}
 full_house combo = let x = (find_triplet combo)
                        y = (find_pair (removeList x combo)) in
-    if (length y == 0) then
+    if (length y == 0) || (length x == 0) then
         flush combo
     else
         Hand_value combo (60 + (kicker combo))
