@@ -221,7 +221,21 @@ test_handLogic = [
     Test "Test full_house on list with full house other rotation" (\x -> do
         let cards = [Card Eight Diamonds, Card Eight Diamonds, Card Eight Spades, Card Three Diamonds, Card Three Diamonds] :: [Card]
             expected = Hand_value cards (60 + kicker cards)
-        assertEqual x (full_house cards) expected)
+        assertEqual x (full_house cards) expected),
+    
+    -- Test four_of_a_kind function
+    Test "Test four_of_a_kind on empty list" (\x -> do
+        let cards = [] :: [Card]
+            expected = Hand_value cards (kicker cards)
+        assertEqual x (four_of_a_kind cards) expected),
+    Test "Test four_of_a_kind on list without four of a kind" (\x -> do
+        let cards = [Card Ace Hearts, Card Three Clubs, Card Two Spades] :: [Card]
+            expected = Hand_value cards (kicker cards)
+        assertEqual x (four_of_a_kind cards) expected),
+    Test "Test four_of_a_kind on list with four of a kind" (\x -> do
+        let cards = [Card King Hearts, Card King Clubs, Card King Spades, Card King Diamonds] :: [Card]
+            expected = Hand_value cards (70 + kicker cards)
+        assertEqual x (four_of_a_kind cards) expected)
     ]
 
 main = do runAll test_handLogic
