@@ -1,5 +1,5 @@
 tests:
-	ghc -o test -main-is Test.Hand_logic.main Test/testHandLogic.hs
+	ghc -o test -main-is Test.Main.main Test/testHandLogic.hs Test/testPokerLogic.hs Test/Main.hs
 	./test
 
 clean:

@@ -1,5 +1,5 @@
 module Test.Hand_logic(
-    main
+    test_handLogic
 ) where
 
 import Src.Hand_logic
@@ -255,5 +255,3 @@ test_handLogic = [
             expected = Hand_value cards (80 + kicker cards)
         assertEqual x (straight_flush cards) expected)
     ]
-
-main = do runAll test_handLogic
