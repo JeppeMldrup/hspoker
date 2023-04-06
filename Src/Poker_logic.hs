@@ -1,15 +1,23 @@
 module Src.Poker_logic (
     Table(..),
     Pot(..),
-    addToPot
+    addToPot,
+    getxHands
 ) where
 
 import Src.Deck_logic
 import Src.Hand_logic
 
-{-| Table datatype to keep track of entire games with deck of cards, list of hands, number of players and location of the button
+{-| Table datatype to keep track of entire games with a Pot, deck of cards, list of hands, number of players and location of the button
 -}
-data Table = Table [Card] [(Card, Card)] Int Int deriving (Show)
+data Table = Table Pot [Card] [(Card, Card)] Int Int deriving (Show)
+
+setTable min max players = Table (Pot 0 min max) (create_deck) [] players 0
+
+--dealCards (Table pot deck _ players button) = Table pot (create_without ) 
+
+getxHands x deck = []
+    
 
 {-| Pot datatype that keeps track of the total Pot, minimum bet and maximum bet
 -}
