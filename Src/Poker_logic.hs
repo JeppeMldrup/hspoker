@@ -13,3 +13,8 @@ data Table = Table [Card] [(Card, Card)] Int Int
 -}
 data Pot = Pot Float Float Float
 
+addToPot a (Pot x y z) = 
+    if a <= z && a >= y then
+        Pot (a+x) y z
+    else
+        Pot x y z
