@@ -2,7 +2,10 @@ module Src.Poker_logic (
     Table(..),
     Pot(..),
     addToPot,
-    dealHands
+    dealHands,
+    dealFlop,
+    dealTurn,
+    dealRiver
 ) where
 
 import Src.Deck_logic
@@ -43,3 +46,12 @@ addToPot a (Pot x y z) =
 {-| dealHands function that takes a table record and returns a new table record with all hands dealt
 -}
 dealHands (Table a deck c d e f g) = Table a (drop (f*2) deck) (take f (get_hands deck)) d e f g
+
+{-| dealFlop function to deal the flop from deck onto the pile
+-}
+dealFlop (Table a b c d e f g) = Table a (drop 3 b) c (take 3 b) e f g
+
+{-| dealTurn function to deal the turn from the deck onto the pile
+-}
+dealTurn (Table a b c d e f g) = Table a (drop 1 b) c ((head b) : d) e f g
+dealRiver = dealTurn
