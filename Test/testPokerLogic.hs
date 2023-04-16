@@ -22,5 +22,9 @@ test_pokerlogic = [
     Test "Test dealHands function with normal table" (\x -> do
         let table = Table (Pot 0 1 2) create_deck [] [] 0 6 1
             expected = Table (Pot 0 1 2) (drop 12 create_deck) (take 6 (get_hands create_deck)) [] 0 6 1
+        assertEqual x (dealHands table) expected),
+    Test "Test dealHands function with two players" (\x -> do
+        let table = Table (Pot 0 1 2) [Card Ace Spades, Card King Diamonds, Card Eight Hearts, Card Four Spades] [] [] 0 6 1
+            expected = Table (Pot 0 1 2) [] [(Card Ace Spades, Card King Diamonds), (Card Eight Hearts, Card Four Spades)] [] 0 6 1
         assertEqual x (dealHands table) expected)
     ]
