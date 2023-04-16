@@ -5,7 +5,8 @@ module Src.Poker_logic (
     dealHands,
     dealFlop,
     dealTurn,
-    dealRiver
+    dealRiver,
+    shuffleDeckOnTable
 ) where
 
 import Src.Deck_logic
@@ -55,3 +56,7 @@ dealFlop (Table a b c d e f g) = Table a (drop 3 b) c (take 3 b) e f g
 -}
 dealTurn (Table a b c d e f g) = Table a (drop 1 b) c ((head b) : d) e f g
 dealRiver = dealTurn
+
+shuffleDeckOnTable (Table a b c d e f g) = do
+    shuffled <- (shuffle b)
+    return (Table a shuffled c d e f g)

@@ -7,6 +7,7 @@ module Test.Framework(
     TestResult(..),
     assertEqual,
     assertEqualMargin,
+    assertNotEqual,
     runAll
 ) where
 
@@ -39,6 +40,14 @@ assertEqualMargin str a b c =
         Passed
     else
         Failed ("Failed assertEqualMargin: " ++ str ++ "\n" ++ "On values:\n" ++ (show a) ++ "\n" ++ (show b))
+
+{- | Assert that two variables are not equal, string is ID for the error message
+-}
+--assertNotEqual :: (Eq a, Show a) => [Char] -> a -> a -> TestResult
+assertNotEqual str a b = if a /= b then
+    Passed
+    else
+        Failed ("Failed assertEqual: " ++ str ++ "\n" ++ "On values:\n" ++ (show a) ++ "\n" ++ (show b))
 
 {- | To print the results of all the tests in a nice way
 -}

@@ -37,4 +37,12 @@ test_pokerlogic = [
         let table = Table (Pot 0 1 2) [Card Four Spades] [] [Card Ace Spades, Card King Diamonds, Card Eight Hearts] 0 6 1
             expected = Table (Pot 0 1 2) [] [] [Card Four Spades, Card Ace Spades, Card King Diamonds, Card Eight Hearts] 0 6 1
         assertEqual x (dealTurn table) expected)
+    
+    {-- Test shuffleDeckOnTable function
+    Test "Test shuffleDeckOnTable function with normal game" (\x -> do
+        let table = Table (Pot 0 1 2) create_deck [] [] 0 6 1
+            shuffled = (shuffleDeckOnTable table)
+            getDeck (Table _ b _ _ _ _ _) = b
+        shuf <- (fmap getDeck shuffled)
+        assertNotEqual x (getDeck table) shuf)-}
     ]
