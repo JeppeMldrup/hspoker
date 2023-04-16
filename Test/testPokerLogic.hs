@@ -18,9 +18,9 @@ test_pokerlogic = [
         let pot = Pot 1 2 3
         assertEqual x (addToPot 2.5 pot) (Pot 3.5 2 3)),
 
-    -- Test getxHands function
-    Test "Test getxHands function with x = 3 and create_deck" (\x -> do
-        let hands = [(Card Two Clubs, Card Two Spades), (Card Two Hearts, Card Two Diamonds), (Card Three Clubs, Card Three Spades)]
-            values = getxHands 3 create_deck
-        assertEqual x hands values)
+    -- Test dealHands function
+    Test "Test dealHands function with normal table" (\x -> do
+        let table = Table (Pot 0 1 2) create_deck [] [] 0 6 1
+            expected = Table (Pot 0 1 2) (drop 12 create_deck) (take 6 (get_hands create_deck)) [] 0 6 1
+        assertEqual x (dealHands table) expected)
     ]

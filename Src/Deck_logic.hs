@@ -12,7 +12,7 @@ module Src.Deck_logic (
     Value(..),
     create_deck,
     shuffle,
-    get_hand,
+    get_hands,
     create_without,
     remove_cards,
     card_value
@@ -80,8 +80,10 @@ shuffle x = if length x < 2 then return x else do
 
 {-| A function that returns a hand object given a deck of cards
 -}
-get_hand :: [a] -> (a, a)
-get_hand (x:xs) = (x, head xs)
+get_hands :: [a] -> [(a, a)]
+get_hands [] = []
+get_hands [a] = []
+get_hands (x:xs) = (x, head xs) : (get_hands (tail xs))
 
 {-| A function that removes some number of cards from the top of a deck of cards
 -}
